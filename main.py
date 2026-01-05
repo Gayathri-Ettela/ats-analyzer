@@ -4,7 +4,7 @@ from google import genai
 
 app = Flask(__name__)
 
-GEMINI_API_KEY = "AIzaSyCxHk7q5C1E3NBvrllklL1ZnesHYgWR9TM"
+GEMINI_API_KEY = "your_api_key"
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 
@@ -80,4 +80,5 @@ def analyze():
     })
 
 if __name__ == '__main__':
+
     app.run(debug=True, port=8080)
