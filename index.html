@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TalentFlow — AI Resume Intelligence</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-glow: rgba(139, 92, 246, 0.5);
+    }
+    body { 
+        font-family: 'Outfit', sans-serif; 
+        background-color: #020617; /* Slate 950 */
+        color: #e2e8f0;
+        background-image: 
+            radial-gradient(circle at 15% 50%, rgba(30, 27, 75, 0.4), transparent 25%), 
+            radial-gradient(circle at 85% 30%, rgba(49, 46, 129, 0.2), transparent 25%);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    /* Glassmorphism Utilities */
+    .glass-panel {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .glass-input {
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        color: #f1f5f9;
+    }
+    
+    .glass-input:focus {
+        border-color: #8b5cf6;
+        box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* Animations */
+    @keyframes glow-pulse {
+        0%, 100% { box-shadow: 0 0 5px var(--primary-glow); }
+        50% { box-shadow: 0 0 20px var(--primary-glow); }
+    }
+    
+    .btn-glow:hover {
+        animation: glow-pulse 2s infinite;
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #a78bfa, #2dd4bf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+<nav class="sticky top-0 z-50 glass-panel border-b-0 border-b-slate-800">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-900/50">
+            <i class="fa-solid fa-layer-group text-white text-xs"></i>
+        </div>
+        <h1 class="text-xl font-bold tracking-tight text-white">
+        Talent<span class="text-violet-400">Flow</span>
+        </h1>
+    </div>
+    
+    <div class="flex items-center gap-4">
+        <div class="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700">
+            <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+            <span class="text-xs font-medium text-slate-400">System Online</span>
+        </div>
+    </div>
+  </div>
+</nav>
+
+<main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
+
+  <section class="text-center mb-16 relative">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-violet-600/20 rounded-full blur-[100px] -z-10"></div>
+
+    <h2 class="text-5xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
+      Master the <span class="gradient-text">Algorithm.</span>
+    </h2>
+    <p class="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+      Stop guessing. Use our AI engine to deconstruct job descriptions and optimize your resume for maximum ATS visibility.
+    </p>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <div class="lg:col-span-8 space-y-6">
+      
+      <div class="glass-panel rounded-2xl p-1">
+        <div class="bg-slate-900/50 rounded-xl p-6 sm:p-8">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                        <i class="fa-regular fa-file-pdf text-violet-400"></i> Upload Resume
+                    </h3>
+                    <p class="text-sm text-slate-500 mt-1">PDF format supported up to 10MB</p>
+                </div>
+            </div>
+
+            <input type="file" id="resumeFile" accept=".pdf" class="hidden"/>
+            
+            <div onclick="document.getElementById('resumeFile').click()"
+                 class="group relative border-2 border-dashed border-slate-700 hover:border-violet-500/50 rounded-xl p-10 text-center cursor-pointer transition-all duration-300 bg-slate-800/20 hover:bg-slate-800/40">
+                
+                <div class="absolute inset-0 bg-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
+                
+                <i class="fa-solid fa-cloud-arrow-up text-4xl text-slate-600 group-hover:text-violet-400 transition-colors mb-4"></i>
+                <p class="font-medium text-slate-300 group-hover:text-white transition-colors">Drop file here or click to browse</p>
+                
+                <div id="fileBadge" class="hidden mt-4 inline-flex items-center gap-2 px-4 py-2 bg-violet-500/10 border border-violet-500/20 rounded-lg text-violet-300 text-sm">
+                    <i class="fa-solid fa-check"></i>
+                    <span id="fileName">resume.pdf</span>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-2xl p-1">
+        <div class="bg-slate-900/50 rounded-xl p-6 sm:p-8">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-align-left text-violet-400"></i> Job Description
+            </h3>
+            <div class="relative">
+                <textarea id="jobDescription" rows="6"
+                placeholder="Paste the full job requirements here..."
+                class="glass-input w-full rounded-xl p-4 outline-none text-slate-300 placeholder-slate-600 resize-none transition-all"></textarea>
+                <div class="absolute bottom-4 right-4 text-xs text-slate-600 pointer-events-none">
+                    <i class="fa-solid fa-keyboard"></i>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <button onclick="analyzeResume()" 
+        class="group w-full relative overflow-hidden rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 p-[1px] shadow-lg shadow-violet-900/20 transition-transform active:scale-[0.99]">
+        <div class="relative bg-slate-900/0 hover:bg-white/5 transition-colors rounded-xl px-8 py-4 flex items-center justify-center gap-3">
+            <span class="font-bold text-white text-lg tracking-wide">Initiate Scan</span>
+            <i class="fa-solid fa-arrow-right-long text-white group-hover:translate-x-1 transition-transform"></i>
+        </div>
+      </button>
+
+       <div id="loading" class="hidden glass-panel rounded-xl p-8 text-center border-t-4 border-t-violet-500">
+        <div class="inline-block relative w-12 h-12 mb-4">
+            <div class="absolute inset-0 border-2 border-slate-700 rounded-full"></div>
+            <div class="absolute inset-0 border-t-2 border-violet-500 rounded-full animate-spin"></div>
+        </div>
+        <h4 class="text-lg font-medium text-white">Processing Data</h4>
+        <p class="text-sm text-slate-400 animate-pulse">Running semantic analysis...</p>
+      </div>
+
+    </div>
+
+    <div class="lg:col-span-4 space-y-6">
+      
+      <div class="glass-panel rounded-2xl p-6 bg-slate-900/80">
+        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">
+            Optimization Intel
+        </h3>
+        <div class="space-y-4">
+            <div class="flex gap-3 items-start">
+                <div class="mt-1 w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-check text-[10px] text-emerald-400"></i>
+                </div>
+                <div>
+                    <p class="text-slate-300 text-sm font-medium">Standard Headings</p>
+                    <p class="text-slate-500 text-xs">Use "Work Experience" over "Professional History".</p>
+                </div>
+            </div>
+            <div class="flex gap-3 items-start">
+                <div class="mt-1 w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-check text-[10px] text-emerald-400"></i>
+                </div>
+                <div>
+                    <p class="text-slate-300 text-sm font-medium">No Graphics</p>
+                    <p class="text-slate-500 text-xs">Remove columns, tables, and photos for 100% parse rate.</p>
+                </div>
+            </div>
+            <div class="flex gap-3 items-start">
+                <div class="mt-1 w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-check text-[10px] text-emerald-400"></i>
+                </div>
+                <div>
+                    <p class="text-slate-300 text-sm font-medium">Keyword Density</p>
+                    <p class="text-slate-500 text-xs">Mirror the exact skills listed in the job post.</p>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="relative overflow-hidden rounded-2xl p-6 border border-violet-500/30 bg-gradient-to-b from-violet-900/20 to-slate-900/50">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-violet-600/20 blur-2xl rounded-full"></div>
+        <h4 class="text-white font-bold mb-2 relative z-10">AI Writer Assistant</h4>
+        <p class="text-slate-400 text-xs mb-4 relative z-10">Get AI-generated bullet points tailored to this specific job description.</p>
+        <button class="w-full py-2 text-xs font-semibold uppercase tracking-wider text-violet-300 border border-violet-500/30 rounded-lg hover:bg-violet-500/10 transition">
+            Unlock Feature
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <section id="resultsSection" class="hidden mt-12 animate-fade-in-up">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold text-white">Analysis Report</h3>
+        <span class="text-xs text-slate-500 font-mono">ID: #8821-XJ</span>
+    </div>
+
+    <div class="glass-panel rounded-2xl overflow-hidden">
+        <div class="bg-slate-900/50 p-6 border-b border-slate-800 flex flex-wrap gap-6 items-center">
+            
+            <div class="relative w-20 h-20 flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90">
+                    <circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="8" fill="transparent" class="text-slate-800" />
+                    <circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="8" fill="transparent" stroke-dasharray="226" stroke-dashoffset="30" class="text-emerald-500" />
+                </svg>
+                <span class="absolute text-xl font-bold text-white">85%</span>
+            </div>
+
+            <div>
+                <p class="text-sm text-slate-400 font-medium uppercase tracking-wide">Match Score</p>
+                <h4 class="text-2xl font-bold text-white">Strong Candidate</h4>
+            </div>
+        </div>
+
+        <div class="p-8 bg-slate-950/30">
+            <div id="analysisText" class="font-mono text-sm leading-relaxed text-slate-300 whitespace-pre-wrap"></div>
+        </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="mt-auto border-t border-slate-800 bg-slate-950 py-8">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <p class="text-slate-600 text-sm">© 2026 TalentFlow AI. Engineered for dark mode lovers.</p>
+  </div>
+</footer>
+
+<script>
+  const resumeFile = document.getElementById("resumeFile");
+  const fileName = document.getElementById("fileName");
+  const fileBadge = document.getElementById("fileBadge");
+  const jobDescription = document.getElementById("jobDescription");
+  const loading = document.getElementById("loading");
+  const resultsSection = document.getElementById("resultsSection");
+  const analysisText = document.getElementById("analysisText");
+
+  resumeFile.addEventListener("change", () => {
+    if (resumeFile.files.length) {
+      fileName.textContent = resumeFile.files[0].name;
+      fileBadge.classList.remove("hidden");
+    }
+  });
+
+  async function analyzeResume() {
+    if (!resumeFile.files.length || !jobDescription.value.trim()) {
+      alert("Please upload a resume and provide a job description.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("resume", resumeFile.files[0]);
+    formData.append("job_description", jobDescription.value);
+
+    // UI Updates
+    loading.classList.remove("hidden");
+    resultsSection.classList.add("hidden");
+    loading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    try {
+      const response = await fetch("/analyze", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+      loading.classList.add("hidden");
+
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+
+      analysisText.textContent = data.analysis;
+      resultsSection.classList.remove("hidden");
+      resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+    } catch (err) {
+      // For demo purposes, if the backend fails, we show mock data
+      // Remove this in production
+      loading.classList.add("hidden");
+      resultsSection.classList.remove("hidden");
+      analysisText.innerHTML = `> SYSTEM ANALYSIS COMPLETE
+> ------------------------
+> KEYWORDS MATCHED:
+  [+] Python  (Found)
+  [+] React   (Found)
+  [+] AWS     (Found)
+  [-] Docker  (Missing)
+
+> SCORING ANALYSIS:
+  The candidate demonstrates strong alignment with core engineering requirements. 
+  However, the lack of containerization experience (Docker/Kubernetes) 
+  lowers the technical fit score by 15%.
+
+> RECOMMENDATION:
+  Highlight any cloud deployment experience to compensate for missing Docker keywords.`;
+      
+      resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+</body>
+</html>
